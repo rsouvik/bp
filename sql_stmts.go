@@ -2,7 +2,6 @@ package main
 
 import (
 	_ "database/sql"
-	"github.com/google/uuid"
 	"log"
 )
 
