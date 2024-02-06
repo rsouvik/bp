@@ -19,17 +19,17 @@ func (sql_ctx *SqlContext) InsertTransaction(tr *Transaction) (id int64, err err
 	}
 
 	// execute insert
-	res, err := stmtIns.Exec(tr.cid, tr.image, tr.descr, tr.name)
+	_, err = stmtIns.Exec(tr.cid, tr.image, tr.descr, tr.name)
 	if err != nil {
 		log.Printf("ERROR: Insert INTO transactions (%s)", err)
 		return -1, err
 	}
 
-	id, err = res.LastInsertId()
+	/*id, err = res.LastInsertId()
 	if err != nil {
 		log.Printf("ERROR: Retrieving LastInsertId Failed (%s)", err)
 		return -1, err
-	}
+	}*/
 
 	return
 }
