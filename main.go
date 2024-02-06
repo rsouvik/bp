@@ -14,7 +14,8 @@ func main() {
 	// make mysql connection
 	// build the connection string user:passwd@tcp(host:port)/db
 	log.Println(DB_USER)
-	sql_conn_str := fmt.Sprintf("postgres://%s:%s@tcp(%s:%d)/%s", DB_USER, DB_PASSWD, DB_HOST, DB_PORT, DB_DATABASE)
+	//sql_conn_str := fmt.Sprintf("postgres://%s:%s@tcp(%s:%d)/%s", DB_USER, DB_PASSWD, DB_HOST, DB_PORT, DB_DATABASE)
+	sql_conn_str := fmt.Sprintf("postgres://%s:%s@%s/%s", DB_USER, DB_PASSWD, DB_HOST, DB_DATABASE)
 	log.Println(sql_conn_str)
 	sql_ctx, err := GetSqlConn(sql_conn_str)
 	if err != nil {
