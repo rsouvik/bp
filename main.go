@@ -20,13 +20,13 @@ func main() {
 		log.Fatalf("FATAL: PG Connection Failed! [%s]", err)
 	}
 
-	//test
-	transaction := NewTransaction("abd", "abc", "abc", "abc", sec)
-	_, err = sec.Msql.InsertTransaction(transaction)
-
 	// save the mysql connection context
 	sec.Msql = sql_ctx
 	log.Println("INFO: PGSql Connection Context - OK")
+
+	//test
+	transaction := NewTransaction("abd", "abc", "abc", "abc", sec)
+	_, err = sec.Msql.InsertTransaction(transaction)
 
 	doneCh := make(chan struct{})
 
