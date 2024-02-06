@@ -27,6 +27,9 @@ func main() {
 	//test
 	transaction := NewTransaction("abd", "abc", "abc", "abc", sec)
 	_, err = sec.Msql.InsertTransaction(transaction)
+	if err != nil {
+		log.Fatalf("FATAL: PG Insert Failed! [%s]", err)
+	}
 
 	doneCh := make(chan struct{})
 
