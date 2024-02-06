@@ -1,9 +1,9 @@
-package bp
+package main
 
 import (
 	"database/sql"
-	"log"
 	_ "github.com/lib/pq"
+	"log"
 )
 
 // later we can use to store more context data

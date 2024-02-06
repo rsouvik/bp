@@ -1,4 +1,4 @@
-package bp
+package main
 
 import (
 	"fmt"

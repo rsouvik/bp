@@ -1,11 +1,10 @@
-package bp
+package main
 
 // Connection Specific Confs go in here
 
 ///////////
 // Mysql //
 ///////////
-
 
 // Db Username
 const DB_USER = "username"
@@ -21,4 +20,3 @@ const DB_PORT = 3306
 
 // DataBase Name
 const DB_DATABASE = ""
-
