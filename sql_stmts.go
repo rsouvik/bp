@@ -12,7 +12,7 @@ func (sql_ctx *SqlContext) InsertTransaction(tr *Transaction) (id int64, err err
 	//	log.Printf("DEBUG: InsertTransaction Hash %v", hash)
 	//}
 
-	stmtIns, err := sql_ctx.Db.Prepare("INSERT INTO cidmeta (cid,image,descr,ciname) VALUES(?,?,?,?)")
+	stmtIns, err := sql_ctx.Db.Prepare("INSERT INTO cidmeta (cid,image,descr,ciname) VALUES($1,$2,$3,$4)")
 	if err != nil {
 		log.Println(err.Error())
 		return -1, err
