@@ -22,12 +22,16 @@ func NewScrapeSvc() *ScrapeSvc {
 
 func (p *ScrapeSvc) fetchMeta(done chan struct{}, s *SharedExtConn) {
 
+	log.Println("Fetching metadata!")
+
 processingLoop:
 
 	for {
 		select {
 
 		case cid := <-p.mdataChannel:
+
+			log.Println("Fetching metadata inside select!")
 
 			resp, err := http.Get("https://ipfs.io/ipfs/" + cid)
 			if err != nil {
