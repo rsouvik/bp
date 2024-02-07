@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bufio"
 	"fmt"
 	"log"
 	"os"
@@ -45,7 +46,25 @@ func main() {
 
 	log.Println("Starting Service!")
 
-	cids := []string{"bafybeia67q6eabx2rzu6datbh3rnsoj7cpupudckijgc5vtxf46zpnk2t4/3885"}
+	//test
+	//cids := []string{"bafybeia67q6eabx2rzu6datbh3rnsoj7cpupudckijgc5vtxf46zpnk2t4/3885"}
+
+	var cids []string
+
+	filePath := os.Args[1]
+	readFile, err := os.Open(filePath)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fileScanner := bufio.NewScanner(readFile)
+	fileScanner.Split(bufio.ScanLines)
+
+	for fileScanner.Scan() {
+		cids = append(cids, fileScanner.Text())
+	}
+
+	readFile.Close()
 
 	//Start service
 	scrapeSvc := NewScrapeSvc()
