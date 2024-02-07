@@ -1,11 +1,9 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 	"net/url"
-	"strconv"
 )
 
 type WebSvc struct {
@@ -17,9 +15,9 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 
 	enableCors(&w)
 
-	query := make(url.Values)
+	//query := make(url.Values)
 	var err error
-	query, err = url.ParseQuery(r.URL.RawQuery) // above 2 lines can be skipped by using ':='
+	_, err = url.ParseQuery(r.URL.RawQuery) // above 2 lines can be skipped by using ':='
 
 	if err != nil {
 		log.Println("ERROR: Request Error ", r.RemoteAddr, err, r.URL.RawQuery)
@@ -37,8 +35,8 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 	w.Header().Set("Content-Type", "application/json")
 
 	// write back to the client
-	_, err = fmt.Fprintf(w, "%s", status)
-	log.Printf("Status [%s]", status)
+	//_, err = fmt.Fprintf(w, "%s", status)
+	//log.Printf("Status [%s]", status)
 
 	return
 
@@ -60,8 +58,6 @@ func (p *WebSvc) Run(s *SharedExtConn) {
 
 	// start the webserver
 	http.HandleFunc("/token", genericHandler(TransactionViewHandler, s))
-
-	http.HandleFunc("/token/cid", genericHandler(TransactionViewForTokenHandler, s))
 
 	log.Printf("Server Started [%s]", SERVER_PORT)
 	http.ListenAndServe(string(SERVER_PORT), nil)

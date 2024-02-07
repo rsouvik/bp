@@ -31,5 +31,5 @@ func (sql_ctx *SqlContext) InsertTransaction(tr *Transaction) (id int64, err err
 		return -1, err
 	}*/
 
-	return
+	return -2, nil
 }

@@ -27,14 +27,14 @@ func main() {
 	log.Println("INFO: PGSql Connection Context - OK")
 
 	//test
-	transaction := NewTransaction("abd", "abc", "abc", "abc", sec)
+	transaction := NewTransaction("abd", "abc", "abc", "abc" /*,sec*/)
 	_, err = sec.Msql.InsertTransaction(transaction)
 	if err != nil {
 		log.Fatalf("FATAL: PG Insert Failed! [%s]", err)
 	}
 
 	doneCh := make(chan struct{})
-	mdataChannel := make(chan MData, 2)
+	//mdataChannel := make(chan MData, 2)
 
 	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
 	if err != nil {
@@ -45,13 +45,15 @@ func main() {
 
 	log.Println("Starting Service!")
 
-	//Start or find broker
+	cids := []string{"bafybeia67q6eabx2rzu6datbh3rnsoj7cpupudckijgc5vtxf46zpnk2t4/3885"}
+
+	//Start service
 	scrapeSvc := NewScrapeSvc()
-	go scrapeSvc.Run()
+	go scrapeSvc.Run(cids, doneCh, sec)
 
 	//Webservice
 	webSvc := WebSvc{}
-	go webSvc.Run()
+	go webSvc.Run(sec)
 
 	//should this be here ?
 	defer sec.Msql.CloseSqlConn()
