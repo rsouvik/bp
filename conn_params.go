@@ -2,6 +2,8 @@ package main
 
 // Connection Specific Confs go in here
 
+const SERVER_PORT = ":9999"
+
 ///////////
 // Mysql //
 ///////////
@@ -16,7 +18,7 @@ const DB_PASSWD = "password"
 const DB_HOST = "localhost"
 
 // Db Port
-const DB_PORT = 3306
+const DB_PORT = 5432
 
 // DataBase Name
 const DB_DATABASE = ""

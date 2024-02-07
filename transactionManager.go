@@ -17,3 +17,10 @@ type TransactionJSON struct {
 	description string `json:"description"`
 	name        string `json:"name"`
 }
+
+type MData struct {
+	cid   string
+	image string
+	descr string
+	name  string
+}

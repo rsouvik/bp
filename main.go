@@ -34,6 +34,24 @@ func main() {
 	}
 
 	doneCh := make(chan struct{})
+	mdataChannel := make(chan MData, 2)
+
+	file, err := os.OpenFile("logs.txt", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0666)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.SetOutput(file)
+
+	log.Println("Starting Service!")
+
+	//Start or find broker
+	scrapeSvc := NewScrapeSvc()
+	go scrapeSvc.Run()
+
+	//Webservice
+	webSvc := WebSvc{}
+	go webSvc.Run()
 
 	//should this be here ?
 	defer sec.Msql.CloseSqlConn()
