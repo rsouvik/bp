@@ -71,6 +71,8 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 		p.mdataChannel <- cids[i]
 	}
 
+	log.Println("Scraping Service Started 1!")
+
 	concurrentThreads := 3
 	//Write to channel
 	for i := 0; i < concurrentThreads; i++ {
