@@ -66,18 +66,22 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 
 	log.Println("Scraping Service Started!")
 
+	concurrentThreads := 1
+	//Write to channel
+	for i := 0; i < concurrentThreads; i++ {
+		go p.fetchMeta(done, s)
+	}
+
 	//Read through CID array and fetch
 	for i := 0; i < len(cids); i++ {
 		p.mdataChannel <- cids[i]
 	}
 
-	log.Println("Scraping Service Started 1!")
+	time.Sleep(30 * time.Second)
 
-	concurrentThreads := 3
-	//Write to channel
-	for i := 0; i < concurrentThreads; i++ {
-		go p.fetchMeta(done, s)
-	}
+	done <- struct{}{}
+
+	log.Println("Scraping Service Started 1!")
 
 processingLoop:
 	for {
