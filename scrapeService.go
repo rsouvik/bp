@@ -76,16 +76,6 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 processingLoop:
 	for {
 		select {
-		//process incoming messages from broker
-
-		//app provision request to backend
-		//this should go to AppManagerSvc
-		//metadata: get an address for account (pki), funding amount for account
-		case t4 := <-ctrlChannel:
-
-			if t4.msgType == "APPPROV" {
-
-			}
 
 		case <-done:
 
