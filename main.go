@@ -27,11 +27,11 @@ func main() {
 	log.Println("INFO: PGSql Connection Context - OK")
 
 	//test
-	transaction := NewTransaction("abda", "abca", "abca", "abca" /*,sec*/)
-	_, err = sec.Msql.InsertTransaction(transaction)
-	if err != nil {
-		log.Fatalf("FATAL: PG Insert Failed! [%s]", err)
-	}
+	//transaction := NewTransaction("abda", "abca", "abca", "abca" /*,sec*/)
+	//_, err = sec.Msql.InsertTransaction(transaction)
+	//if err != nil {
+	//	log.Fatalf("FATAL: PG Insert Failed! [%s]", err)
+	//}
 
 	doneCh := make(chan struct{})
 	//mdataChannel := make(chan MData, 2)
