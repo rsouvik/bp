@@ -79,7 +79,7 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 
 	time.Sleep(30 * time.Second)
 
-	done <- struct{}{}
+	//done <- struct{}{}
 
 	log.Println("Scraping Service Started 1!")
 
