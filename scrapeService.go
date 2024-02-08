@@ -72,7 +72,7 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 		go p.fetchMeta(done, s)
 	}
 
-	//Read through CID array and fetch
+	//Read through CID array and write to channel
 	for i := 0; i < len(cids); i++ {
 		p.mdataChannel <- cids[i]
 	}

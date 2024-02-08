@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"net/url"
@@ -15,14 +16,38 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 
 	enableCors(&w)
 
-	//query := make(url.Values)
+	query := make(url.Values)
 	var err error
-	_, err = url.ParseQuery(r.URL.RawQuery) // above 2 lines can be skipped by using ':='
+	_, err = url.ParseQuery(r.URL.RawQuery)
 
 	if err != nil {
 		log.Println("ERROR: Request Error ", r.RemoteAddr, err, r.URL.RawQuery)
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
+	}
+	var mdatas []*MData
+
+	// map to store flattened struct
+	var q = make(map[string]string)
+	// flatten the GET params
+	for k, v := range query {
+		q[k] = v[0] // we might have more than 1, but we stick to first one
+	}
+
+	mdatas, _ = s.Msql.GetMetaData(q["cid"])
+
+	var tr []MDataJSON
+	for k := 0; k < len(mdatas); k++ {
+		tr = append(tr, MDataJSON{mdatas[k].cid, mdatas[k].image, mdatas[k].descr, mdatas[k].name})
+	}
+
+	msg, err := ResponseJsonDevice("SUCCEEDED", tr, 0)
+
+	status := ""
+	if err != nil {
+		status = err.Error()
+	} else {
+		status = string(msg)
 	}
 
 	if err != nil {
@@ -35,8 +60,8 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 	w.Header().Set("Content-Type", "application/json")
 
 	// write back to the client
-	//_, err = fmt.Fprintf(w, "%s", status)
-	//log.Printf("Status [%s]", status)
+	_, err = fmt.Fprintf(w, "%s", status)
+	log.Printf("Status [%s]", status)
 
 	return
 

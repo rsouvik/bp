@@ -12,7 +12,8 @@ func NewTransaction(cid string, image string, descr string, name string /*, s *S
 	return &Transaction{cid: cid, image: image, descr: descr, name: name /*, S: s*/}
 }
 
-type TransactionJSON struct {
+type MDataJSON struct {
+	cid         string `json:"cid"`
 	image       string `json:"image"`
 	description string `json:"description"`
 	name        string `json:"name"`
