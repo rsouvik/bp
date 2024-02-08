@@ -42,14 +42,16 @@ processingLoop:
 				log.Fatalln(err)
 			}
 			var data map[string]interface{}
-			err = json.Unmarshal([]byte(body), &data)
-			/*if err != nil {
-				panic(err)
-			}*/
+			if len(body) != 0 {
+				err = json.Unmarshal([]byte(body), &data)
+				if err != nil {
+					panic(err)
+				}
 
-			tr := NewTransaction(cid, data["image"].(string), data["description"].(string), data["name"].(string))
+				tr := NewTransaction(cid, data["image"].(string), data["description"].(string), data["name"].(string))
 
-			s.Msql.InsertTransaction(tr)
+				s.Msql.InsertTransaction(tr)
+			}
 
 			time.Sleep(30 * time.Second)
 
