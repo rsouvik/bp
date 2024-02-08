@@ -153,7 +153,7 @@ func (p *WebSvc) Run(s *SharedExtConn) {
 	// start the webserver
 	http.HandleFunc("/token", genericHandler(TransactionViewHandler, s))
 
-	http.HandleFunc("/token/cid", genericHandler(TransactionViewHandlerCID, s))
+	http.HandleFunc("/token/", genericHandler(TransactionViewHandlerCID, s))
 
 	log.Printf("Server Started [%s]", SERVER_PORT)
 	http.ListenAndServe(string(SERVER_PORT), nil)
