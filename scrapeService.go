@@ -43,15 +43,15 @@ processingLoop:
 			}
 			var data map[string]interface{}
 			err = json.Unmarshal([]byte(body), &data)
-			if err != nil {
+			/*if err != nil {
 				panic(err)
-			}
+			}*/
 
 			tr := NewTransaction(cid, data["image"].(string), data["description"].(string), data["name"].(string))
 
 			s.Msql.InsertTransaction(tr)
 
-			time.Sleep(5 * time.Second)
+			time.Sleep(30 * time.Second)
 
 		case <-done:
 
@@ -76,7 +76,7 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 		p.mdataChannel <- cids[i]
 	}
 
-	time.Sleep(5 * time.Second)
+	time.Sleep(30 * time.Second)
 
 	//done <- struct{}{}
 
