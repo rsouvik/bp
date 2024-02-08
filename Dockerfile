@@ -44,4 +44,5 @@ EXPOSE 9999
 
 # Command to run when starting the container
 #CMD ["/dist/iotProxySvc"]
-ENTRYPOINT ["/dist/bp ipfs_cids.csv"]
+ENTRYPOINT ["/dist/bp"]
+CMD ["ipfs_cids.csv"]
