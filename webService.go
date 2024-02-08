@@ -42,7 +42,7 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 
 	query := r.URL.String()
 	var lcid string
-	if strings.HasPrefix(query, "/token/") {
+	if strings.HasPrefix(query, "/tokens/") {
 		lcid = query[8:]
 	}
 
