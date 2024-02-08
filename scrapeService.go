@@ -51,7 +51,7 @@ processingLoop:
 
 			s.Msql.InsertTransaction(tr)
 
-			time.Sleep(30 * time.Second)
+			time.Sleep(5 * time.Second)
 
 		case <-done:
 
@@ -66,8 +66,7 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 
 	log.Println("Scraping Service Started!")
 
-	concurrentThreads := 1
-	//Write to channel
+	concurrentThreads := 3
 	for i := 0; i < concurrentThreads; i++ {
 		go p.fetchMeta(done, s)
 	}
@@ -77,7 +76,7 @@ func (p *ScrapeSvc) Run(cids []string, done chan struct{}, s *SharedExtConn) err
 		p.mdataChannel <- cids[i]
 	}
 
-	time.Sleep(30 * time.Second)
+	time.Sleep(5 * time.Second)
 
 	//done <- struct{}{}
 
