@@ -13,5 +13,11 @@
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://ec2-44-203-160-144.compute-1.amazonaws.com:5432/misc</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="postgres@bp" uuid="0bf19b6e-4202-4c9e-8acd-0fd785423d3d">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://candidate-testing.co2sjmg0hdpm.us-east-2.rds.amazonaws.com:5432/sray</jdbc-url>
+    </data-source>
   </component>
 </project>

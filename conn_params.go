@@ -9,7 +9,7 @@ const SERVER_PORT = ":9999"
 ///////////
 
 // Db Username
-const DB_USER = "username"
+const DB_USER = "sray"
 
 // Db Password
 const DB_PASSWD = "password"
@@ -21,4 +21,4 @@ const DB_HOST = "localhost"
 const DB_PORT = 5432
 
 // DataBase Name
-const DB_DATABASE = ""
+const DB_DATABASE = "sray"
