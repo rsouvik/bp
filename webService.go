@@ -18,7 +18,7 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 
 	query := make(url.Values)
 	var err error
-	_, err = url.ParseQuery(r.URL.RawQuery)
+	query, err = url.ParseQuery(r.URL.RawQuery)
 
 	if err != nil {
 		log.Println("ERROR: Request Error ", r.RemoteAddr, err, r.URL.RawQuery)
@@ -82,24 +82,6 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 	log.Printf("INFO: Request From [%s] with Parameters [%s]\n", r.Header.Get("X-Real-IP"), r.URL)
 
 	enableCors(&w)
-
-	/*query := make(url.Values)
-	var err error
-	_, err = url.ParseQuery(r.URL.RawQuery)
-
-	if err != nil {
-		log.Println("ERROR: Request Error ", r.RemoteAddr, err, r.URL.RawQuery)
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-	var mdatas []*MData
-
-	// map to store flattened struct
-	var q = make(map[string]string)
-	// flatten the GET params
-	for k, v := range query {
-		q[k] = v[0] // we might have more than 1, but we stick to first one
-	}*/
 
 	var mdatas []*MData
 	mdatas, _ = s.Msql.GetMetaDataAll()
