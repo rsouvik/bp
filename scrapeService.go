@@ -34,7 +34,7 @@ processingLoop:
 			log.Println("Fetching metadata inside select!")
 
 			resp, err := http.Get("https://ipfs.io/ipfs/" + cid)
-			log.Printf("RESP OF GET [%d]", resp.StatusCode)
+			//log.Printf("RESP OF GET [%d]", resp.StatusCode)
 
 			if err != nil {
 				log.Fatalln(err)
@@ -42,20 +42,23 @@ processingLoop:
 
 			defer resp.Body.Close()
 
-			body, err := ioutil.ReadAll(resp.Body)
-			if err != nil {
-				log.Fatalln(err)
+			if resp.StatusCode == 200 {
+
+				body, err := ioutil.ReadAll(resp.Body)
+				if err != nil {
+					log.Fatalln(err)
+				}
+				var data map[string]interface{}
+
+				err = json.Unmarshal([]byte(body), &data)
+				if err != nil {
+					panic(err)
+				}
+
+				tr := NewTransaction(cid, data["image"].(string), data["description"].(string), data["name"].(string))
+
+				s.Msql.InsertTransaction(tr)
 			}
-			var data map[string]interface{}
-
-			err = json.Unmarshal([]byte(body), &data)
-			if err != nil {
-				panic(err)
-			}
-
-			tr := NewTransaction(cid, data["image"].(string), data["description"].(string), data["name"].(string))
-
-			s.Msql.InsertTransaction(tr)
 
 			time.Sleep(30 * time.Second)
 
