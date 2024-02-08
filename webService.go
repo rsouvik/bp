@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"net/url"
+	"strings"
 )
 
 type WebSvc struct {
@@ -16,7 +16,7 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 
 	enableCors(&w)
 
-	query := make(url.Values)
+	/*query := make(url.Values)
 	var err error
 	query, err = url.ParseQuery(r.URL.RawQuery)
 
@@ -25,7 +25,7 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
-	var mdatas []*MData
+
 
 	// map to store flattened struct
 	var q = make(map[string]string)
@@ -34,9 +34,21 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 		q[k] = v[0] // we might have more than 1, but we stick to first one
 	}
 
-	log.Printf("q[cid] is (%s)", q["cid"])
+	log.Printf("q[cid] is (%s)", q["cid"]) */
 
-	mdatas, _ = s.Msql.GetMetaData(q["cid"])
+	var mdatas []*MData
+
+	//mdatas, _ = s.Msql.GetMetaData(q["cid"])
+
+	query := r.URL.String()
+	var lcid string
+	if strings.HasPrefix(query, "/token/") {
+		lcid = query[7:]
+	}
+
+	log.Printf("lcid is (%s)", lcid)
+
+	mdatas, _ = s.Msql.GetMetaData(lcid)
 
 	var tr []MDataJSON
 	for k := 0; k < len(mdatas); k++ {
