@@ -104,9 +104,10 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 	status := ""
 	if err != nil {
 		status = err.Error()
-	} else {
-		status = string(msg)
 	}
+	//else {
+	//	status = string(msg)
+	//}
 
 	if err != nil {
 		log.Printf("ERROR: Processing Failed, Returning (%s)", "http.StatusBadRequest")
@@ -117,6 +118,12 @@ func TransactionViewHandler(w http.ResponseWriter, r *http.Request, s *SharedExt
 	//check this
 	w.Header().Set("Content-Type", "application/json")
 
+	prettyJSON, err := formatJSON(msg)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	status = string(prettyJSON)
 	// write back to the client
 	_, err = fmt.Fprintf(w, "%s", status)
 	log.Printf("Status [%s]", status)
