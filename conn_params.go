@@ -2,7 +2,7 @@ package main
 
 // Connection Specific Confs go in here
 
-const SERVER_PORT = ":9999"
+const SERVER_PORT = ":8080"
 
 ///////////
 // Mysql //
