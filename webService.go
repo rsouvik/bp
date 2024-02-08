@@ -34,6 +34,8 @@ func TransactionViewHandlerCID(w http.ResponseWriter, r *http.Request, s *Shared
 		q[k] = v[0] // we might have more than 1, but we stick to first one
 	}
 
+	log.Printf("q[cid] is (%s)", q["cid"])
+
 	mdatas, _ = s.Msql.GetMetaData(q["cid"])
 
 	var tr []MDataJSON

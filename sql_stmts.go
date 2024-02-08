@@ -36,7 +36,7 @@ func (sql_ctx *SqlContext) InsertTransaction(tr *Transaction) (id int64, err err
 
 func (sql_ctx *SqlContext) GetMetaData(cid string) ([]*MData, error) {
 
-	rows, err := sql_ctx.Db.Query("SELECT cid,image,descr,ciname FROM cidmeta where cid = $1", cid)
+	rows, err := sql_ctx.Db.Query("SELECT cid,image,descr,ciname FROM cidmeta where cid LIKE $1", cid)
 	if err != nil {
 		log.Println(err.Error())
 		return nil, err
@@ -51,6 +51,7 @@ func (sql_ctx *SqlContext) GetMetaData(cid string) ([]*MData, error) {
 			panic(err)
 		}
 		mdatas = append(mdatas, md)
+		log.Println(md.name)
 	}
 
 	if err := rows.Err(); err != nil {
