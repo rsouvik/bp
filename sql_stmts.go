@@ -78,7 +78,7 @@ func (sql_ctx *SqlContext) GetMetaDataAll() ([]*MData, error) {
 		if err := rows.Scan(&md.cid, &md.image, &md.descr, &md.name); err != nil {
 			panic(err)
 		}
-		log.Println(md.name)
+		//log.Println(md.name)
 		mdatas = append(mdatas, md)
 	}
 
