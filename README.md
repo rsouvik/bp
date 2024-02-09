@@ -1,3 +1,5 @@
+IPFS scraper
+
 1. Do a git clone
 2. Copy ipfs_cids.csv into current directory
 3. Make appropriate changes to conn_params.go
